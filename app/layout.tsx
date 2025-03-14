@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Navbar } from "./_components/navbar"
+import { Footer } from "./_components/footer"
 
 export const metadata: Metadata = {
   title: "Todo",
@@ -17,14 +19,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-Br" suppressHydrationWarning>
-      <body className={cn("min-h-[100dvh] antialiased", geistSans.className)}>
+      <body
+        className={cn(
+          "grid min-h-dvh grid-rows-[auto_1fr_auto] antialiased",
+          geistSans.className
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
         </ThemeProvider>
         <Toaster />
       </body>
