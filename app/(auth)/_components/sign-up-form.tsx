@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { LoaderCircle } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -34,7 +35,7 @@ export function SignUpForm() {
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
     const { name, email, password } = values
 
-    const { data, error } = await authClient.signUp.email(
+    await authClient.signUp.email(
       {
         email,
         password,
