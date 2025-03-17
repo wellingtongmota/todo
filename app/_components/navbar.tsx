@@ -9,7 +9,7 @@ export function Navbar() {
             <ListTodo className="size-4" />
           </div>
           <h1 className="text-xl font-semibold">
-            Todo<span className="text-primary">Noookdev</span>
+            Todo<span className="text-primary">Nookdev</span>
           </h1>
         </div>
       </div>
