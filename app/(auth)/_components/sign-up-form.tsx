@@ -10,7 +10,7 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { signUp } from "@/lib/auth-client"
+import { authClient } from "@/lib/auth-client"
 import { SignUpSchema } from "@/schemas/authentication"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoaderCircle } from "lucide-react"
@@ -34,7 +34,7 @@ export function SignUpForm() {
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
     const { name, email, password } = values
 
-    const { data, error } = await signUp.email(
+    const { data, error } = await authClient.signUp.email(
       {
         email,
         password,
@@ -42,8 +42,8 @@ export function SignUpForm() {
       },
       {
         onSuccess: (ctx) => {
-          toast.success("Sucesso", {
-            description: "Sua conta foi criada com sucesso!"
+          toast.success("Success", {
+            description: "Your account has been created successfully!"
           })
 
           form.reset()
@@ -52,7 +52,7 @@ export function SignUpForm() {
         },
         onError: (ctx) => {
           // display the error message
-          toast.error("Erro", {
+          toast.error("Error", {
             description: ctx.error.message
           })
         }
@@ -67,9 +67,9 @@ export function SignUpForm() {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Crie sua conta</h1>
+          <h1 className="text-2xl font-bold">Create your account</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            Preencha os campos abaixo para criar uma nova conta
+            Fill in the fields below to create a new account
           </p>
         </div>
         <div className="grid gap-6">
@@ -79,7 +79,7 @@ export function SignUpForm() {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Nome</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input id="name" {...field} placeholder="John Doe" />
                   </FormControl>
@@ -95,13 +95,13 @@ export function SignUpForm() {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>E-mail</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       id="email"
                       type="email"
                       {...field}
-                      placeholder="m@examplo.com"
+                      placeholder="m@example.com"
                     />
                   </FormControl>
                   <FormMessage />
@@ -116,7 +116,7 @@ export function SignUpForm() {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Senha</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input id="password" type="password" {...field} />
                   </FormControl>
@@ -134,17 +134,17 @@ export function SignUpForm() {
             {form.formState.isSubmitting ? (
               <>
                 <LoaderCircle className="mr-2 size-4 animate-spin" />
-                Registrando
+                Registering
               </>
             ) : (
-              "Registrar"
+              "Register"
             )}
           </Button>
         </div>
         <div className="text-center text-sm">
-          Já tem uma conta?{" "}
+          Already have an account?{" "}
           <Link href="/sign-in" className="underline underline-offset-4">
-            Faça login
+            Sign in
           </Link>
         </div>
       </form>

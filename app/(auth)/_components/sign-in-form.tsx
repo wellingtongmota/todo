@@ -10,7 +10,7 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { signIn } from "@/lib/auth-client"
+import { authClient } from "@/lib/auth-client"
 import { SignInSchema } from "@/schemas/authentication"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoaderCircle } from "lucide-react"
@@ -33,12 +33,12 @@ export function SignInForm() {
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     const { email, password } = values
 
-    const { data, error } = await signIn.email(
+    const { data, error } = await authClient.signIn.email(
       { email, password },
       {
         onSuccess: (ctx) => {
-          toast.success("Sucesso", {
-            description: "Bem-vindo"
+          toast.success("Success", {
+            description: "Welcome"
           })
 
           form.reset()
@@ -46,7 +46,7 @@ export function SignInForm() {
         },
         onError: (ctx) => {
           // display the error message
-          toast.error("Erro", {
+          toast.error("Error", {
             description: ctx.error.message
           })
         }
@@ -61,9 +61,9 @@ export function SignInForm() {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Faça login na sua conta</h1>
+          <h1 className="text-2xl font-bold">Sign in to your account</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            Insira seu e-mail abaixo para acessar sua conta
+            Enter your email below to access your account
           </p>
         </div>
         <div className="grid gap-6">
@@ -73,9 +73,9 @@ export function SignInForm() {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>E-mail</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input id="email" {...field} placeholder="m@examplo.com" />
+                    <Input id="email" {...field} placeholder="m@example.com" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -90,12 +90,12 @@ export function SignInForm() {
               return (
                 <FormItem>
                   <div className="flex items-center">
-                    <FormLabel>Senha</FormLabel>
+                    <FormLabel>Password</FormLabel>
                     <Link
                       href="/forgot-password"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
-                      Esqueceu sua senha?
+                      Forgot your password?
                     </Link>
                   </div>
                   <FormControl>
@@ -115,17 +115,17 @@ export function SignInForm() {
             {form.formState.isSubmitting ? (
               <>
                 <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-                Entrando
+                Signing in
               </>
             ) : (
-              "Entrar"
+              "Sign In"
             )}
           </Button>
         </div>
         <div className="text-center text-sm">
-          Não tem uma conta?{" "}
+          {`Don't have an account? `}
           <Link href="/sign-up" className="underline underline-offset-4">
-            Cadastre-se
+            Sign up
           </Link>
         </div>
       </form>

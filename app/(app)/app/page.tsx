@@ -8,7 +8,7 @@ export default async function AppPage() {
 
   return (
     <div className="wrapper py-4">
-      <p>Olá, {session?.user.name}</p>
+      <p>Hello, {session?.user.name}!</p>
     </div>
   )
 }
