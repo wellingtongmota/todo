@@ -2,54 +2,41 @@ import { z } from "zod"
 
 export const SignUpSchema = z.object({
   name: z
-    .string({ required_error: "Nome é obrigatório" })
-    .min(1, "Nome é obrigatório"),
+    .string({ required_error: "Name is required" })
+    .min(1, "Name is required"),
   email: z
-    .string({ required_error: "E-mail é obrigatório" })
-    .min(1, "E-mail é obrigatório")
-    .email("E-mail inválido"),
+    .string({ required_error: "Email is required" })
+    .min(1, "Email is required")
+    .email("Invalid email"),
   password: z
-    .string({ required_error: "Senha é obrigatória" })
-    .min(1, "Senha é obrigatória")
-    .min(8, "A senha deve ter pelo menos 8 caracteres")
-    .max(32, "A senha deve ter menos de 32 caracteres")
+    .string({ required_error: "Password is required" })
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters long")
+    .max(32, "Password must be less than 32 characters long")
 })
 
 export const SignInSchema = z.object({
   email: z
-    .string({ required_error: "E-mail é obrigatório" })
-    .min(1, "E-mail é obrigatório")
-    .email("E-mail inválido"),
-  // password: z
-  // .string()
-  // .min(8, { message: "A senha deve ter no mínimo 8 caracteres." })
-  // .regex(/[a-z]/, {
-  //   message: "A senha deve conter pelo menos uma letra minúscula."
-  // })
-  // .regex(/[A-Z]/, {
-  //   message: "A senha deve conter pelo menos uma letra maiúscula."
-  // })
-  // .regex(/[0-9]/, { message: "A senha deve conter pelo menos um número." })
-  // .regex(/[\W_]/, {
-  //   message: "A senha deve conter pelo menos um caractere especial."
-  // }),
+    .string({ required_error: "Email is required" })
+    .min(1, "Email is required")
+    .email("Invalid email"),
   password: z
-    .string({ required_error: "Senha é obrigatória" })
-    .min(1, "Senha é obrigatória")
-    .min(8, "A senha deve ter pelo menos 8 caracteres")
-    .max(32, "A senha deve ter menos de 32 caracteres")
+    .string({ required_error: "Password is required" })
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters long")
+    .max(32, "Password must be less than 32 characters long")
 })
 
 export const NewPasswordSchema = z
   .object({
     password: z
-      .string({ required_error: "Senha é obrigatória" })
-      .min(1, "Senha é obrigatória")
-      .min(8, "A senha deve ter pelo menos 8 caracteres")
-      .max(32, "A senha deve ter menos de 32 caracteres"),
+      .string({ required_error: "Password is required" })
+      .min(1, "Password is required")
+      .min(8, "Password must be at least 8 characters long")
+      .max(32, "Password must be less than 32 characters long"),
     confirmPassword: z.string()
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
-    message: "As senhas não coincidem."
+    message: "Passwords do not match."
   })
