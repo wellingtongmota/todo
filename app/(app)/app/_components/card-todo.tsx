@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button"
-import { Todo } from "@/data/todos"
+import { todoSchema } from "@/schemas/database-tables"
 import { Calendar, Check, Trash } from "lucide-react"
+import { z } from "zod"
+
+type TTodo = z.infer<typeof todoSchema>
 
 type CardTodoProps = {
-  todo: Todo
+  todo: TTodo
 }
 
 export function CardTodo({ todo }: CardTodoProps) {
@@ -15,19 +18,21 @@ export function CardTodo({ todo }: CardTodoProps) {
         </Button>
       </div>
 
-      <div className="flex-1">
-        <h4 className="mb-2">{todo.title}</h4>
+      <div className="grid flex-1 content-center">
+        <h4>{todo.title}</h4>
 
-        <div className="flex items-center gap-2">
-          <Calendar className="size-3" />
-          <p className="text-muted-foreground text-sm">
-            {todo.dueDate.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "2-digit"
-            })}
-          </p>
-        </div>
+        {todo.dueDate && (
+          <div className="mt-4 flex items-center gap-2">
+            <Calendar className="size-3" />
+            <p className="text-muted-foreground text-sm">
+              {todo.dueDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "2-digit"
+              })}
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-center">

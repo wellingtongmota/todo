@@ -27,7 +27,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       <div className="bg-muted relative hidden lg:block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/justin-morgan-unsplash.jpg"
+          src="/justin_morgan.jpg"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.3] dark:grayscale"
         />

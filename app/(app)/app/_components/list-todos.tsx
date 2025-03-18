@@ -2,12 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Todo } from "@/data/todos"
+import { todoSchema } from "@/schemas/database-tables"
 import { Funnel, Plus } from "lucide-react"
+import { z } from "zod"
 import { CardTodo } from "./card-todo"
 
+type TTodo = z.infer<typeof todoSchema>
+
 type ListTodosProps = {
-  todos: Todo[]
+  todos: TTodo[]
 }
 
 export function ListTodos({ todos }: ListTodosProps) {

@@ -35,7 +35,7 @@ export function SignInForm() {
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     const { email, password } = values
 
-    const { data, error } = await authClient.signIn.email(
+    await authClient.signIn.email(
       { email, password },
       {
         onSuccess: (ctx) => {
@@ -45,6 +45,7 @@ export function SignInForm() {
 
           form.reset()
           router.push("/app")
+          router.refresh()
         },
         onError: (ctx) => {
           // display the error message
@@ -59,7 +60,8 @@ export function SignInForm() {
   const handleGitHubSignIn = async () => {
     await authClient.signIn.social(
       {
-        provider: "github"
+        provider: "github",
+        callbackURL: "/app"
       },
       {
         onRequest: () => {
