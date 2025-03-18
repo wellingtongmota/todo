@@ -88,8 +88,8 @@ export function ForgotForm() {
         </div>
         <div className="text-center text-sm">
           Remembered your password?{" "}
-          <Link href="/login" className="underline underline-offset-4">
-            Log in
+          <Link href="/sign-in" className="underline underline-offset-4">
+            Sign in
           </Link>
         </div>
       </form>
