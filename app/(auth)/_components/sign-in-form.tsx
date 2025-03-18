@@ -70,6 +70,7 @@ export function SignInForm() {
             description: "Welcome"
           })
           router.push("/app")
+          router.refresh()
         },
         onError: (ctx) => {
           // display the error message

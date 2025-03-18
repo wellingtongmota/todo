@@ -4,6 +4,7 @@ import { prisma } from "./prisma"
 import { openAPI } from "better-auth/plugins"
 import { Resend } from "resend"
 import { VerifyEmailTemplate } from "@/components/email/verify-email-template"
+import { ResetPasswordTemplate } from "@/components/email/reset-password-template"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -14,7 +15,15 @@ export const auth = betterAuth({
   plugins: [openAPI()],
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true
+    requireEmailVerification: true,
+    sendResetPassword: async ({ user, url }) => {
+      await resend.emails.send({
+        from: "todoNookdev <noreply@nookdev.com.br>",
+        to: [user.email],
+        subject: "Reset your password",
+        react: ResetPasswordTemplate({ url })
+      })
+    }
     // autoSignIn: false
   },
   emailVerification: {
