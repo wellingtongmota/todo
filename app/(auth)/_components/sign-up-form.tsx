@@ -44,12 +44,13 @@ export function SignUpForm() {
       {
         onSuccess: (ctx) => {
           toast.success("Success", {
-            description: "Your account has been created successfully!"
+            description:
+              "Your account has been created. Please verify your email."
           })
 
           form.reset()
           //redirect to the dashboard or sign in page
-          router.push("/sign-in")
+          // router.push("/sign-in")
         },
         onError: (ctx) => {
           // display the error message

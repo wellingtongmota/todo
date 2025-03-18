@@ -2,6 +2,10 @@ import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
 import { prisma } from "./prisma"
 import { openAPI } from "better-auth/plugins"
+import { Resend } from "resend"
+import { VerifyEmailTemplate } from "@/components/email/verify-email-template"
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -9,8 +13,22 @@ export const auth = betterAuth({
   }),
   plugins: [openAPI()],
   emailAndPassword: {
-    enabled: true
+    enabled: true,
+    requireEmailVerification: true
     // autoSignIn: false
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, token }) => {
+      const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.NEXT_PUBLIC_APP_VERIFIED_EMAIL}`
+      await resend.emails.send({
+        from: "todoNookdev <noreply@nookdev.com.br>",
+        to: [user.email],
+        subject: "Verify your email",
+        react: VerifyEmailTemplate({ url: verificationUrl })
+      })
+    }
   },
   socialProviders: {
     github: {
