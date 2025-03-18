@@ -16,14 +16,11 @@ import { SignUpSchema } from "@/schemas/authentication"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoaderCircle } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 
 export function SignUpForm() {
-  const router = useRouter()
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
@@ -52,8 +49,6 @@ export function SignUpForm() {
           })
 
           form.reset()
-          //redirect to the dashboard or sign in page
-          // router.push("/sign-in")
         },
         onError: (ctx) => {
           // display the error message
