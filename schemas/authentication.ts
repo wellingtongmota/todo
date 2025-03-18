@@ -15,10 +15,18 @@ export const PasswordSchema = z
   .min(8, "Password must be at least 8 characters long")
   .max(32, "Password must be less than 32 characters long")
 
+export const PictureFileSchema = z
+  .instanceof(File)
+  .refine((file) => file.size < 4 * 1024 * 1024, {
+    message: "The file must be less than 4MB"
+  })
+  .optional()
+
 export const SignUpSchema = z.object({
   name: NameSchema,
   email: EmailSchema,
-  password: PasswordSchema
+  password: PasswordSchema,
+  image: PictureFileSchema
 })
 
 export const SignInSchema = z.object({

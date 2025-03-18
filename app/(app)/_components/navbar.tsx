@@ -26,7 +26,7 @@ export async function Navbar() {
 
         {session?.user ? (
           <NavUser user={session.user}>
-            <Avatar>
+            <Avatar className="cursor-pointer">
               {session.user.image && (
                 <AvatarImage src={session.user.image} alt="Avatar usuário" />
               )}

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
+import { convertImageToBase64 } from "@/lib/utils"
 import { SignUpSchema } from "@/schemas/authentication"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoaderCircle } from "lucide-react"
@@ -28,18 +29,20 @@ export function SignUpForm() {
     defaultValues: {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      image: undefined
     }
   })
 
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
-    const { name, email, password } = values
+    const { name, email, password, image } = values
 
     await authClient.signUp.email(
       {
         email,
         password,
-        name
+        name,
+        image: image ? await convertImageToBase64(image) : undefined
       },
       {
         onSuccess: (ctx) => {
@@ -121,6 +124,29 @@ export function SignUpForm() {
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input id="password" type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="image"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Picture</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="image"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        field.onChange(e.target.files?.[0] || null)
+                      }
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
