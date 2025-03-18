@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -14,6 +14,7 @@ import { authClient } from "@/lib/auth-client"
 import { ResetPasswordSchema } from "@/schemas/authentication"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoaderCircle } from "lucide-react"
+import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -62,6 +63,12 @@ export default function ResetPasswordForm() {
           <p className="text-muted-foreground mb-4">
             This password reset link is invalid or has expired.
           </p>
+          <Link
+            href="/forgot-password"
+            className={buttonVariants({ variant: "link" })}
+          >
+            Go to Forgot your password
+          </Link>
         </div>
       </div>
     )
