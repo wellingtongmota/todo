@@ -29,9 +29,27 @@ export async function deleteTodo(todoId: string) {
     }
   }
 
+  const todo = await prisma.todo.findUnique({
+    where: {
+      id: todoId,
+      userId: userId
+    },
+    select: {
+      id: true
+    }
+  })
+
+  if (!todo) {
+    return {
+      error: "Not found",
+      data: null
+    }
+  }
+
   await prisma.todo.delete({
     where: {
-      id: todoId
+      id: todoId,
+      userId: userId
     }
   })
 
