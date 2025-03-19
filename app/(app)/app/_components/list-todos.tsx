@@ -9,6 +9,7 @@ import { CardTodo } from "./card-todo"
 import { deleteTodo } from "@/actions/todo"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { TodoDrawer } from "@/components/todo-drawer"
 
 type TTodo = z.infer<typeof todoSchema>
 
@@ -36,10 +37,12 @@ export function ListTodos({ todos }: ListTodosProps) {
       <Separator className="mb-4 sm:mb-6" />
 
       <div className="mb-4 flex gap-3 sm:mb-6">
-        <Button size="sm">
-          <Plus />
-          New todo
-        </Button>
+        <TodoDrawer>
+          <Button size="sm">
+            <Plus />
+            New todo
+          </Button>
+        </TodoDrawer>
 
         <Button size="sm" variant="outline">
           <Funnel />
