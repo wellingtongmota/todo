@@ -7,8 +7,8 @@ type AuthLayoutProps = {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="grid min-h-dvh lg:grid-cols-2">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
+    <div className="grid min-h-dvh">
+      <div className="flex flex-col gap-4 p-4">
         <Link href="/app" className="flex items-center gap-2">
           <div className="bg-primary text-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg">
             <ListTodo className="size-6" />
@@ -23,14 +23,6 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">{children}</div>
         </div>
-      </div>
-      <div className="bg-muted relative hidden lg:block">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/justin_morgan.jpg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.3] dark:grayscale"
-        />
       </div>
     </div>
   )
