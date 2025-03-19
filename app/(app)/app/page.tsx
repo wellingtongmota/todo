@@ -17,7 +17,7 @@ export default async function AppPage() {
   const todos: TTodo[] = await getTodos()
 
   return (
-    <div className="wrapper mx-auto grid max-w-2xl py-4">
+    <div className="wrapper mx-auto grid py-4">
       <h2 className="headline-3 mb-6 sm:mb-8">Hello, {session?.user.name}!</h2>
 
       <Suspense fallback={<BlockListSkeleton />}>
