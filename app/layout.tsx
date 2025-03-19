@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={cn("min-h-dvh antialiased", geistSans.className)}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
