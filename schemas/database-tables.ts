@@ -5,5 +5,7 @@ export const todoSchema = z.object({
   title: z.string(),
   description: z.string().optional().nullable(),
   completed: z.boolean().default(false),
-  dueDate: z.date().optional().nullable()
+  dueDate: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional()
 })

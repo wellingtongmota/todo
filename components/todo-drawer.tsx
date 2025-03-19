@@ -19,22 +19,21 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "@/components/ui/drawer"
-import { Input } from "@/components/ui/input"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { cn } from "@/lib/utils"
 import { todoSchema } from "@/schemas/database-tables"
 import { useState } from "react"
 import { z } from "zod"
-import { Textarea } from "@/components/ui/textarea"
+import { TodoUpsertForm } from "./todo-upsert-form"
 
 type TTodo = z.infer<typeof todoSchema>
 
 type TodoDrawerProps = {
   children: React.ReactNode
+  title: string
   todo?: TTodo
 }
 
-export function TodoDrawer({ children, todo }: TodoDrawerProps) {
+export function TodoDrawer({ children, title, todo }: TodoDrawerProps) {
   const [open, setOpen] = useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -46,12 +45,12 @@ export function TodoDrawer({ children, todo }: TodoDrawerProps) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-xl">
           <DialogHeader>
-            <DialogTitle>Edit Todo</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
             <DialogDescription>
               {`Create or make changes. Click save when you're done.`}
             </DialogDescription>
           </DialogHeader>
-          <UpsertTodoForm />
+          <TodoUpsertForm className="px-4" todo={todo ? todo : null} />
         </DialogContent>
       </Dialog>
     )
@@ -69,7 +68,7 @@ export function TodoDrawer({ children, todo }: TodoDrawerProps) {
             {`Create or make changes. Click save when you're done.`}
           </DrawerDescription>
         </DrawerHeader>
-        <UpsertTodoForm className="px-4" />
+        <TodoUpsertForm className="px-4" todo={todo ? todo : null} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
@@ -77,15 +76,5 @@ export function TodoDrawer({ children, todo }: TodoDrawerProps) {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-  )
-}
-
-function UpsertTodoForm({ className }: React.ComponentProps<"form">) {
-  return (
-    <form className={cn("grid items-start gap-4", className)}>
-      <Input id="title" placeholder="Title" />
-      <Textarea placeholder="Type your description here." />
-      <Button type="submit">Save changes</Button>
-    </form>
   )
 }
