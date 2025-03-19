@@ -23,11 +23,15 @@ type TUpsertTodo = z.infer<typeof upsertTodoSchema>
 type TodoUpsertFormProps = React.HTMLAttributes<HTMLFormElement> & {
   className?: string
   todo: TTodo | null
+  onSuccess: () => void
 }
 
-export function TodoUpsertForm({ className, todo }: TodoUpsertFormProps) {
-  const isEditing = !!todo?.id
-
+export function TodoUpsertForm({
+  className,
+  todo,
+  onSuccess,
+  ...props
+}: TodoUpsertFormProps) {
   const router = useRouter()
 
   const form = useForm<TUpsertTodo>({
@@ -41,9 +45,15 @@ export function TodoUpsertForm({ className, todo }: TodoUpsertFormProps) {
 
   async function onSubmit(values: z.infer<typeof upsertTodoSchema>) {
     try {
-      await upsertTodo(values)
-      toast.success("Success")
-      router.refresh()
+      const result = await upsertTodo(values)
+
+      if (result.error) {
+        toast.error(result.error)
+      } else {
+        toast.success("Success")
+        router.refresh()
+        onSuccess()
+      }
     } catch (error) {
       toast.error("Error")
     }
@@ -54,6 +64,7 @@ export function TodoUpsertForm({ className, todo }: TodoUpsertFormProps) {
       <form
         className={cn("grid items-start gap-4", className)}
         onSubmit={form.handleSubmit(onSubmit)}
+        {...props}
       >
         <FormField
           control={form.control}
@@ -83,7 +94,7 @@ export function TodoUpsertForm({ className, todo }: TodoUpsertFormProps) {
           )}
         />
 
-        <Button type="submit">Save changes</Button>
+        <Button type="submit">Save</Button>
       </form>
     </Form>
   )

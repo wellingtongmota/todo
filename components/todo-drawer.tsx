@@ -37,6 +37,10 @@ export function TodoDrawer({ children, title, todo }: TodoDrawerProps) {
   const [open, setOpen] = useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
+  const handleSuccess = () => {
+    setOpen(false)
+  }
+
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -50,7 +54,11 @@ export function TodoDrawer({ children, title, todo }: TodoDrawerProps) {
               {`Create or make changes. Click save when you're done.`}
             </DialogDescription>
           </DialogHeader>
-          <TodoUpsertForm className="px-4" todo={todo ? todo : null} />
+          <TodoUpsertForm
+            className="px-4"
+            todo={todo ? todo : null}
+            onSuccess={handleSuccess}
+          />
         </DialogContent>
       </Dialog>
     )
@@ -68,7 +76,11 @@ export function TodoDrawer({ children, title, todo }: TodoDrawerProps) {
             {`Create or make changes. Click save when you're done.`}
           </DrawerDescription>
         </DrawerHeader>
-        <TodoUpsertForm className="px-4" todo={todo ? todo : null} />
+        <TodoUpsertForm
+          className="px-4"
+          todo={todo ? todo : null}
+          onSuccess={handleSuccess}
+        />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
