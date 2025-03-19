@@ -6,6 +6,9 @@ import { todoSchema } from "@/schemas/database-tables"
 import { Funnel, Plus } from "lucide-react"
 import { z } from "zod"
 import { CardTodo } from "./card-todo"
+import { deleteTodo } from "@/actions/todo"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 type TTodo = z.infer<typeof todoSchema>
 
@@ -14,6 +17,19 @@ type ListTodosProps = {
 }
 
 export function ListTodos({ todos }: ListTodosProps) {
+  const router = useRouter()
+  const handleDeleteTodo = async (todoId: string) => {
+    try {
+      await deleteTodo(todoId)
+      router.refresh()
+      toast.success("Deletion Successful", {
+        description: "The todo item has been successfully deleted."
+      })
+    } catch (error) {
+      toast.error("Error")
+    }
+  }
+
   return (
     <div className="grid">
       <h3 className="headline-4 mb-1">Todos</h3>
@@ -33,7 +49,11 @@ export function ListTodos({ todos }: ListTodosProps) {
 
       <div className="grid space-y-4">
         {todos.map((todo) => (
-          <CardTodo todo={todo} key={todo.id} />
+          <CardTodo
+            todo={todo}
+            key={todo.id}
+            onDelete={() => handleDeleteTodo(todo.id)}
+          />
         ))}
       </div>
     </div>

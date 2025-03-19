@@ -7,9 +7,10 @@ type TTodo = z.infer<typeof todoSchema>
 
 type CardTodoProps = {
   todo: TTodo
+  onDelete: () => void
 }
 
-export function CardTodo({ todo }: CardTodoProps) {
+export function CardTodo({ todo, onDelete }: CardTodoProps) {
   return (
     <div className="bg-accent flex w-full gap-4 rounded-md border p-4">
       <div className="flex items-center justify-center">
@@ -36,7 +37,7 @@ export function CardTodo({ todo }: CardTodoProps) {
       </div>
 
       <div className="flex items-center justify-center">
-        <Button size="icon" variant="outline">
+        <Button size="icon" variant="outline" onClick={onDelete}>
           <Trash className="text-destructive" />
         </Button>
       </div>

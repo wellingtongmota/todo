@@ -18,3 +18,25 @@ export async function getTodos() {
 
   return todos
 }
+
+export async function deleteTodo(todoId: string) {
+  const userId = await getUserSession()
+
+  if (!userId) {
+    return {
+      error: "Not authorized",
+      data: null
+    }
+  }
+
+  await prisma.todo.delete({
+    where: {
+      id: todoId
+    }
+  })
+
+  return {
+    error: null,
+    data: "Todo deleted successfully"
+  }
+}
