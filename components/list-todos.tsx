@@ -1,16 +1,15 @@
 "use client"
 
+import { deleteTodo } from "@/actions/todo"
+import { CardTodo } from "@/components/card-todo"
+import { TodoDrawer } from "@/components/todo-drawer"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { todoSchema } from "@/schemas/database-tables"
 import { Funnel, Plus } from "lucide-react"
-import { z } from "zod"
-import { CardTodo } from "./card-todo"
-import { deleteTodo } from "@/actions/todo"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { TodoDrawer } from "@/components/todo-drawer"
-import { TodoUpsertForm } from "@/components/todo-upsert-form"
+import { z } from "zod"
 
 type TTodo = z.infer<typeof todoSchema>
 

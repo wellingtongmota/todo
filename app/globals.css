@@ -114,15 +114,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 @layer components {
   .wrapper {
     @apply mx-auto w-[calc(100%-2rem)] max-w-screen-2xl;
@@ -134,5 +125,29 @@
 
   .headline-4 {
     @apply text-lg font-semibold lg:text-xl;
+  }
+}
+
+@theme {
+  --animate-fade: fade 0.7s ease-out forwards;
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

@@ -13,7 +13,7 @@ type CardTodoProps = {
 
 export function CardTodo({ todo, onDelete }: CardTodoProps) {
   return (
-    <div className="bg-accent flex w-full gap-4 rounded-md border p-4">
+    <div className="bg-accent animate-fade flex w-full gap-4 rounded-md border p-4 opacity-0">
       <div className="flex items-center justify-center">
         <Button size="icon" variant="outline">
           <Check className="text-muted-foreground" />

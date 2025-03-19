@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
-import { ListTodos } from "./_components/list-todos"
+import { ListTodos } from "@/components/list-todos"
 import { getTodos } from "@/actions/todo"
 import { z } from "zod"
 import { todoSchema } from "@/schemas/database-tables"
