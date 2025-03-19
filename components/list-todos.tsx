@@ -6,7 +6,7 @@ import { TodoDrawer } from "@/components/todo-drawer"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { todoSchema } from "@/schemas/database-tables"
-import { Funnel, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -33,7 +33,7 @@ export function ListTodos({ todos }: ListTodosProps) {
 
   return (
     <div className="grid">
-      <h3 className="headline-4 mb-1">Todos</h3>
+      <h3 className="headline-4 mb-1">To-dos</h3>
       <Separator className="mb-4 sm:mb-6" />
 
       <div className="mb-4 flex gap-3 sm:mb-6">
@@ -43,11 +43,6 @@ export function ListTodos({ todos }: ListTodosProps) {
             New todo
           </Button>
         </TodoDrawer>
-
-        <Button size="sm" variant="outline">
-          <Funnel />
-          Filters
-        </Button>
       </div>
 
       <div className="grid space-y-4">

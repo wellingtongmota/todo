@@ -86,7 +86,7 @@ export async function upsertTodo(input: z.infer<typeof upsertTodoSchema>) {
     }
   }
 
-  const { id, title, description } = parseResult.data
+  const { id, title, description, dueDate } = parseResult.data
 
   if (!id && !title) {
     return {
@@ -101,11 +101,13 @@ export async function upsertTodo(input: z.infer<typeof upsertTodoSchema>) {
     create: {
       title: title!,
       description,
+      dueDate,
       userId
     },
     update: {
       title,
-      description
+      description,
+      dueDate
     }
   })
 

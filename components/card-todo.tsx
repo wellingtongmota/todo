@@ -1,6 +1,7 @@
 import { TodoDrawer } from "@/components/todo-drawer"
 import { Button } from "@/components/ui/button"
 import { todoSchema } from "@/schemas/database-tables"
+import { format } from "date-fns"
 import { Calendar, Check, Text, Trash } from "lucide-react"
 import { z } from "zod"
 
@@ -20,27 +21,25 @@ export function CardTodo({ todo, onDelete }: CardTodoProps) {
         </Button>
       </div>
 
-      <div className="grid flex-1 content-center">
+      <div className="grid flex-1 content-center space-y-2">
         <TodoDrawer title="Edit Todo" todo={todo}>
           <h4 className="cursor-pointer">{todo.title}</h4>
         </TodoDrawer>
 
-        <div className="mt-4 flex items-center gap-6">
-          {todo.createdAt && (
-            <div className="flex items-center gap-2">
-              <Calendar className="text-muted-foreground size-3" />
-              <p className="text-muted-foreground text-sm">
-                {todo.createdAt.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "2-digit"
-                })}
-              </p>
-            </div>
-          )}
+        {(todo.dueDate || todo.description) && (
+          <div className="flex items-center gap-6">
+            {todo.dueDate && (
+              <div className="flex items-center gap-2">
+                <Calendar className="text-muted-foreground size-3" />
+                <p className="text-muted-foreground text-sm">
+                  {format(todo.dueDate, "PPP")}
+                </p>
+              </div>
+            )}
 
-          {todo.description && <Text className="size-3" />}
-        </div>
+            {todo.description && <Text className="size-3" />}
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-center">
