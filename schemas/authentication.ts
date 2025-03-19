@@ -1,3 +1,4 @@
+import { X } from "lucide-react"
 import { z } from "zod"
 
 export const NameSchema = z
@@ -21,6 +22,11 @@ export const PictureFileSchema = z
     message: "The file must be less than 4MB"
   })
   .optional()
+
+export const UpdateUserSchema = z.object({
+  name: NameSchema,
+  image: PictureFileSchema
+})
 
 export const SignUpSchema = z.object({
   name: NameSchema,
