@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator"
 import { SettingSection } from "./_components/setting-section"
+import { ToggleTheme } from "@/components/toggle-theme"
 
 export default function SettingsPage() {
   return (
@@ -11,7 +12,9 @@ export default function SettingsPage() {
 
         <Separator />
 
-        <SettingSection title="Theme">Test</SettingSection>
+        <SettingSection title="Theme">
+          <ToggleTheme />
+        </SettingSection>
 
         <Separator />
       </div>
