@@ -134,7 +134,6 @@ export function TodoUpsertForm({
                     selected={field.value}
                     onSelect={field.onChange}
                     disabled={{ before: new Date() }}
-                    initialFocus
                   />
                 </PopoverContent>
               </Popover>
