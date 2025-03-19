@@ -33,7 +33,7 @@ export function ListTodos({ todos }: ListTodosProps) {
 
   return (
     <div className="grid">
-      <h3 className="headline-4 mb-1">To-dos</h3>
+      <h3 className="headline-3 mb-1">To-dos</h3>
       <Separator className="mb-4 sm:mb-6" />
 
       <div className="mb-4 flex gap-3 sm:mb-6">

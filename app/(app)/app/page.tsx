@@ -18,7 +18,7 @@ export default async function AppPage() {
 
   return (
     <div className="wrapper mx-auto grid py-4">
-      <h2 className="headline-3 mb-6 sm:mb-8">Hello, {session?.user.name}!</h2>
+      <h2 className="headline-2 mb-6 sm:mb-8">Hello, {session?.user.name}!</h2>
 
       <Suspense fallback={<BlockListSkeleton />}>
         <ListTodos todos={todos} />
