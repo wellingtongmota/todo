@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Instala dependências
-RUN npm install
+RUN npm install --force
 
 # Copia o restante do código
 COPY . .
@@ -31,7 +31,7 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 
 # Instala apenas as dependências de produção (não é necessário instalar as devDependencies)
-RUN npm install --only=production
+RUN npm install --force --only=production 
 
 # Se houver um arquivo .env necessário, copie-o também
 COPY --from=builder /app/.env ./.env
