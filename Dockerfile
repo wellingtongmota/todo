@@ -30,6 +30,9 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 
+# Instala apenas as dependências de produção (não é necessário instalar as devDependencies)
+RUN npm install --only=production
+
 # Se houver um arquivo .env necessário, copie-o também
 COPY --from=builder /app/.env ./.env
 
