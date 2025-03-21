@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  nextjs:
+    image: app-next-todo:latest
+    build: .
+    ports:
+      - "3033:3000"
+    env_file:
+      - .env
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: 512M
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - app_network
+      - npm_network
+
+networks:
+  app_network:
+    external: true
+  npm_network:
+    external: true

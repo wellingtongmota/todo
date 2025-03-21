@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { geistSans } from "@/fonts"
 import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         </ThemeProvider>
         <Toaster />
       </body>
