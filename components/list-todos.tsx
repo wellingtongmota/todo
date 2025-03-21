@@ -22,7 +22,7 @@ export function ListTodos({ todos }: ListTodosProps) {
 
   const handleDeleteTodo = async (todoId: string) => {
     try {
-      const result = await toggleTodo(todoId)
+      const result = await deleteTodo(todoId)
 
       if (result.error) {
         toast.error(result.error)
