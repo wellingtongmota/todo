@@ -30,6 +30,7 @@ export async function deleteTodo(todoId: string) {
   if (!userId) {
     return {
       error: "Not authorized",
+      success: false,
       data: null
     }
   }
@@ -47,6 +48,7 @@ export async function deleteTodo(todoId: string) {
   if (!todo) {
     return {
       error: "Not found",
+      success: false,
       data: null
     }
   }
@@ -60,6 +62,7 @@ export async function deleteTodo(todoId: string) {
 
   return {
     error: null,
+    success: true,
     data: "Todo deleted successfully"
   }
 }
@@ -115,5 +118,52 @@ export async function upsertTodo(input: z.infer<typeof upsertTodoSchema>) {
     error: null,
     success: true,
     data: todo
+  }
+}
+
+export async function toggleTodo(todoId: string) {
+  const userId = await getUserSession()
+
+  if (!userId) {
+    return {
+      error: "Not authorized",
+      success: false,
+      data: null
+    }
+  }
+
+  const todo = await prisma.todo.findUnique({
+    where: {
+      id: todoId,
+      userId: userId
+    },
+    select: {
+      id: true,
+      completed: true
+    }
+  })
+
+  if (!todo) {
+    return {
+      error: "Not found",
+      success: false,
+      data: null
+    }
+  }
+
+  const updatedTodo = await prisma.todo.update({
+    where: {
+      id: todoId,
+      userId: userId
+    },
+    data: {
+      completed: !todo.completed
+    }
+  })
+
+  return {
+    error: null,
+    success: true,
+    data: updatedTodo
   }
 }
