@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
 import { prisma } from "./prisma"
-import { openAPI } from "better-auth/plugins"
+// import { openAPI } from "better-auth/plugins"
 import { Resend } from "resend"
 import { VerifyEmailTemplate } from "@/components/email/verify-email-template"
 import { ResetPasswordTemplate } from "@/components/email/reset-password-template"
@@ -14,7 +14,7 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql"
   }),
-  plugins: [openAPI()],
+  // plugins: [openAPI()],
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
