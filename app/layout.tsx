@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
 import { Suspense } from "react"
 import "./globals.css"
+import { LoadingCircle } from "@/components/loading-circle"
 
 export const metadata: Metadata = {
   title: "todoNookdev",
@@ -25,7 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          <Suspense fallback={<div className="min-h-dvh w-full flex flex-col justify-center items-center"><LoadingCircle /></div>}>{children}</Suspense>
         </ThemeProvider>
         <Toaster />
       </body>
