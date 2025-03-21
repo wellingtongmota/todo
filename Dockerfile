@@ -1,43 +1,49 @@
-# Etapa 1: Construção
-FROM node:20-alpine AS builder
+# Stage 1: Build the application
+FROM node:22-alpine AS builder
 
+# Set working directory
 WORKDIR /app
 
-# Copia apenas os arquivos necessários para instalar dependências
-COPY package.json package-lock.json ./
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json* ./
 
-# Instala dependências
+# Install dependencies
 RUN npm install --force
 
-# Copia o restante do código
+# Copy the rest of the application code
 COPY . .
 
-# Build da aplicação
+# Copy .env file
+COPY .env .env
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Migrate Prisma
+RUN npx prisma migrate deploy
+
+# Build the application
 RUN npm run build
 
-# Remove devDependencies para reduzir o tamanho da imagem
-RUN npm prune --production
+# Stage 2: Run the application
+FROM node:22-alpine AS runner
 
-# Etapa 2: Execução
-FROM node:20-alpine
-
+# Set working directory
 WORKDIR /app
 
-# Copia os arquivos essenciais do estágio de construção
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/package-lock.json ./
-COPY --from=builder /app/node_modules ./node_modules
+# Copy necessary files from the builder stage
+COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/.env .env
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/prisma ./prisma
 
-# Instala apenas as dependências de produção (não é necessário instalar as devDependencies)
-RUN npm install --force --only=production 
-
-# Se houver um arquivo .env necessário, copie-o também
-COPY --from=builder /app/.env ./.env
-
-# Expondo a porta do Next.js
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Comando para iniciar a aplicação
+# Set environment variables
+ENV NODE_ENV=production
+
+# Run the application
 CMD ["npm", "start"]
