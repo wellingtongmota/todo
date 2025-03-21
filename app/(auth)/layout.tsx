@@ -1,4 +1,4 @@
-import { CircleDollarSign, ListTodo } from "lucide-react"
+import { ListTodo } from "lucide-react"
 import Link from "next/link"
 
 type AuthLayoutProps = {
