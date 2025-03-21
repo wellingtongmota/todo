@@ -15,7 +15,7 @@ export default async function authMiddleware(request: NextRequest) {
   const { data: session } = await betterFetch<Session>(
     "/api/auth/get-session",
     {
-      baseURL: process.env.BETTER_AUTH_URL,
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
       headers: {
         //get the cookie from the request
         cookie: request.headers.get("cookie") || ""

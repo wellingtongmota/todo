@@ -9,6 +9,8 @@ import { ResetPasswordTemplate } from "@/components/email/reset-password-templat
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export const auth = betterAuth({
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  trustedOrigins: [process.env.NEXT_PUBLIC_TRUSTED_URL as string],
   database: prismaAdapter(prisma, {
     provider: "postgresql"
   }),
