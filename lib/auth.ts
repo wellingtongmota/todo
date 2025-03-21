@@ -43,6 +43,7 @@ export const auth = betterAuth({
   },
   socialProviders: {
     github: {
+      redirectURI: `${process.env.NEXT_PUBLIC_TRUSTED_URL}/api/auth/callback/github`,
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string
     }
