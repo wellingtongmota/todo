@@ -15,7 +15,6 @@ import { SignInSchema } from "@/schemas/authentication"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Github, LoaderCircle } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -23,7 +22,6 @@ import { z } from "zod"
 
 export function SignInForm() {
   const [pendingGitHub, setPendingGitHub] = useState(false)
-  const router = useRouter()
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
@@ -36,19 +34,14 @@ export function SignInForm() {
     const { email, password } = values
 
     await authClient.signIn.email(
-      { email, password },
+      { email, password, callbackURL: "/app" },
       {
         onSuccess: (ctx) => {
           toast.success("Success", {
             description: "Welcome"
           })
-
-          form.reset()
-          router.push("/app")
-          router.refresh()
         },
         onError: (ctx) => {
-          // display the error message
           toast.error("Error", {
             description: ctx.error.message
           })
@@ -71,11 +64,8 @@ export function SignInForm() {
           toast.success("Success", {
             description: "Welcome"
           })
-          router.push("/app")
-          router.refresh()
         },
         onError: (ctx) => {
-          // display the error message
           toast.error("Error", {
             description: ctx.error.message
           })
