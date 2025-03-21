@@ -77,6 +77,7 @@ export function ListTodos({ todos }: ListTodosProps) {
               <CardTodo
                 key={todo.id}
                 todo={todo}
+                info={true}
                 onDelete={() => handleDeleteTodo(todo.id)}
                 onToggle={() => handleToggleTodo(todo.id)}
               />
@@ -98,6 +99,7 @@ export function ListTodos({ todos }: ListTodosProps) {
               <CardTodo
                 key={todo.id}
                 todo={todo}
+                info={false}
                 onDelete={() => handleDeleteTodo(todo.id)}
                 onToggle={() => handleToggleTodo(todo.id)}
               />

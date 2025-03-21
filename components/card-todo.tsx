@@ -1,33 +1,36 @@
 import { TodoDrawer } from "@/components/todo-drawer"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { todoSchema } from "@/schemas/database-tables"
 import { format } from "date-fns"
-import { Calendar, Check, Text, Trash } from "lucide-react"
+import { Calendar, Check, Text, Trash, Undo } from "lucide-react"
 import { z } from "zod"
 
 type TTodo = z.infer<typeof todoSchema>
 
 type CardTodoProps = {
   todo: TTodo
+  info: boolean
   onDelete: () => void
   onToggle: () => void
 }
 
-export function CardTodo({ todo, onDelete, onToggle }: CardTodoProps) {
+export function CardTodo({ todo, info, onDelete, onToggle }: CardTodoProps) {
   return (
-    <div className="bg-accent animate-fade flex w-full gap-4 rounded-md border p-4 opacity-0">
+    <div className="bg-accent animate-fade flex w-full gap-4 rounded-md border p-3 opacity-0">
       <div className="flex items-center justify-center">
         <Button size="icon" variant="outline" onClick={onToggle}>
-          <Check className="text-muted-foreground" />
+          {todo.completed ? <Undo className="text-muted-foreground" /> : <Check className="text-muted-foreground" />}
+          
         </Button>
       </div>
 
       <div className="grid flex-1 content-center space-y-2">
         <TodoDrawer title="Edit Todo" todo={todo}>
-          <h4 className="cursor-pointer">{todo.title}</h4>
+          <h4 className={cn(["cursor-pointer", todo.completed && "line-through text-green-600 decoration-green-600"])}>{todo.title}</h4>
         </TodoDrawer>
 
-        {(todo.dueDate || todo.description) && (
+        {info && (
           <div className="flex items-center gap-6">
             {todo.dueDate && (
               <div className="flex items-center gap-2">
