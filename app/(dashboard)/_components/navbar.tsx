@@ -1,10 +1,11 @@
+import { GlowEffect } from "@/components/motion-primitives/glow-effect"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import { auth } from "@/lib/auth"
-import { ListTodo } from "lucide-react"
+import { ArrowRight, ListTodo } from "lucide-react"
 import { headers } from "next/headers"
 import Link from "next/link"
 import { NavUser } from "./nav-user"
-import { buttonVariants } from "@/components/ui/button"
 
 export async function Navbar() {
   const session = await auth.api.getSession({
@@ -12,7 +13,7 @@ export async function Navbar() {
   })
 
   return (
-    <header className="sticky top-0 z-40 flex h-14 items-center border-b backdrop-blur-3xl">
+    <header className="sticky top-0 z-40 flex h-14 items-center backdrop-blur-3xl">
       <div className="wrapper flex max-w-screen-2xl items-center justify-between">
         <Link href={session ? "/app" : "/"}>
           <div className="flex items-center gap-3">
@@ -35,8 +36,19 @@ export async function Navbar() {
             </Avatar>
           </NavUser>
         ) : (
-          <Link className={buttonVariants()} href="/sign-in">
-            Sign in
+          <Link href="/sign-in">
+            <div className="relative">
+              <GlowEffect
+                colors={["#FF5733", "#33FF57", "#3357FF", "#7C3AED"]}
+                mode="colorShift"
+                blur="soft"
+                duration={3}
+                scale={0.9}
+              />
+              <Button className="dark:bg-background relative">
+                Sign in <ArrowRight />
+              </Button>
+            </div>
           </Link>
         )}
       </div>
