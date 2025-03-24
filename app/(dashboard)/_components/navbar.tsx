@@ -4,6 +4,7 @@ import { ListTodo } from "lucide-react"
 import { headers } from "next/headers"
 import Link from "next/link"
 import { NavUser } from "./nav-user"
+import { buttonVariants } from "@/components/ui/button"
 
 export async function Navbar() {
   const session = await auth.api.getSession({
@@ -11,9 +12,9 @@ export async function Navbar() {
   })
 
   return (
-    <header className="sticky z-40 top-0 flex h-14 items-center border-b backdrop-blur-3xl">
-      <div className="wrapper flex max-w-screen-xl items-center justify-between">
-        <Link href="/app">
+    <header className="sticky top-0 z-40 flex h-14 items-center border-b backdrop-blur-3xl">
+      <div className="wrapper flex max-w-screen-2xl items-center justify-between">
+        <Link href={session ? "/app" : "/"}>
           <div className="flex items-center gap-3">
             <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
               <ListTodo className="size-4" />
@@ -34,7 +35,9 @@ export async function Navbar() {
             </Avatar>
           </NavUser>
         ) : (
-          <Link href="/sign-in">Entrar</Link>
+          <Link className={buttonVariants()} href="/sign-in">
+            Sign in
+          </Link>
         )}
       </div>
     </header>

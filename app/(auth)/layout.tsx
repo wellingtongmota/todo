@@ -9,7 +9,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="grid min-h-dvh">
       <div className="flex flex-col gap-4 p-4">
-        <Link href="/app" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <div className="bg-primary text-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg">
             <ListTodo className="size-6" />
           </div>
