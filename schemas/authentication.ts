@@ -44,6 +44,11 @@ export const ForgotPasswordSchema = z.object({
   email: EmailSchema
 })
 
+export const ChangePasswordSchema = z.object({
+  newPassword: PasswordSchema,
+  currentPassword: PasswordSchema,
+})
+
 export const ResetPasswordSchema = z
   .object({
     password: PasswordSchema,
