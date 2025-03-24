@@ -1,7 +1,8 @@
 import { GlowEffect } from "@/components/motion-primitives/glow-effect"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { auth } from "@/lib/auth"
+import { cn } from "@/lib/utils"
 import { ArrowRight, ListTodo } from "lucide-react"
 import { headers } from "next/headers"
 import Link from "next/link"
@@ -36,20 +37,21 @@ export async function Navbar() {
             </Avatar>
           </NavUser>
         ) : (
-          <Link href="/sign-in">
-            <div className="relative">
-              <GlowEffect
-                colors={["#FF5733", "#33FF57", "#3357FF", "#7C3AED"]}
-                mode="colorShift"
-                blur="soft"
-                duration={3}
-                scale={0.9}
-              />
-              <Button className="dark:bg-background relative">
-                Sign in <ArrowRight />
-              </Button>
-            </div>
-          </Link>
+          <div className="relative">
+            <GlowEffect
+              colors={["#FF5733", "#33FF57", "#3357FF", "#7C3AED"]}
+              mode="colorShift"
+              blur="soft"
+              duration={3}
+              scale={0.9}
+            />
+            <Link
+              href="/sign-in"
+              className={cn([buttonVariants(), "dark:bg-background relative"])}
+            >
+              Sign in <ArrowRight />
+            </Link>
+          </div>
         )}
       </div>
     </header>
