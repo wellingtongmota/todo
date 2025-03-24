@@ -1,3 +1,9 @@
+import HeroSection from "./_components/hero-section"
+
 export default function Home() {
-  return <div className="py-4">Home</div>
+  return (
+    <main>
+      <HeroSection />
+    </main>
+  )
 }
