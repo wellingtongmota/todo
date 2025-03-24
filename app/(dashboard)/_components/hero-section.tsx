@@ -1,7 +1,9 @@
 "use client"
 
-import { Button, buttonVariants } from "@/components/ui/button"
-import { ArrowRight, Rocket } from "lucide-react"
+import { GlowEffect } from "@/components/motion-primitives/glow-effect"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { Rocket } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -12,20 +14,27 @@ export default function HeroSection() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="max-w-3xl text-center sm:mx-auto lg:mt-0 lg:mr-auto lg:w-4/5">
             <h1 className="mt-8 text-4xl font-semibold text-balance md:text-5xl xl:text-6xl xl:[line-height:1.125]">
-              Manage Your Tasks Efficiently with TodoNookdev
+              Manage Your Tasks Efficiently with todo
+              <span className="text-primary">Nookdev.</span>
             </h1>
             <p className="mx-auto mt-8 hidden max-w-2xl text-lg text-wrap sm:block">
               TodoNookdev helps you stay organized and manage your tasks
               effectively with a simple and intuitive interface.
             </p>
-            <p className="mx-auto mt-6 max-w-2xl text-wrap sm:hidden">
-              Stay organized and manage your tasks effectively with TodoNookdev.
-            </p>
 
-            <div className="mt-8">
-              <Link href="/sign-in" className={buttonVariants({ size: "lg" })}>
-                <Rocket className="relative size-4" />
-                <span className="text-nowrap">Get Started</span>
+            <div className="relative mx-auto mt-8 w-fit">
+              <GlowEffect
+                colors={["#FF5733", "#33FF57", "#3357FF", "#7C3AED"]}
+                mode="colorShift"
+                blur="strong"
+                duration={3}
+                scale={0.9}
+              />
+              <Link
+                href="/sign-in"
+                className={cn([buttonVariants({ size: "lg" }), "relative"])}
+              >
+                <Rocket /> Get Started
               </Link>
             </div>
           </div>
