@@ -7,29 +7,33 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { authClient } from "@/lib/auth-client"
 import { cn } from "@/lib/utils"
 import { Session } from "@/types/auth-types"
+import { LayoutDashboard, LogOut, LucideIcon, Settings } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import React from "react"
 import { toast } from "sonner"
 
 type TLink = {
   title: string
   url: string
+  icon: LucideIcon
 }
 
 const links: TLink[] = [
   {
     title: "Dashboard",
-    url: "/app"
+    url: "/app",
+    icon: LayoutDashboard
   },
   {
     title: "Settings",
-    url: "/app/settings"
+    url: "/app/settings",
+    icon: Settings
   }
 ]
 
@@ -71,18 +75,20 @@ export function NavUser({ children, user }: NavUserProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {links.map((link) => (
-            <Link key={link.title} href={link.url}>
+          {links.map(({ title, url, icon: Icon }) => (
+            <Link key={title} href={url}>
               <DropdownMenuItem
-                className={cn(["", isActive(link.url) && "text-primary"])}
+                className={cn(["", isActive(url) && "text-primary"])}
               >
-                {link.title}
+                <Icon />
+                {title}
               </DropdownMenuItem>
             </Link>
           ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => handleSignOut()}>
+          <LogOut />
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>
