@@ -26,7 +26,7 @@ export default async function SettingsPage() {
         <SettingSection title="Account">
           <div className="flex w-full justify-end">
             <ChangePasswordDrawer>
-              <Button>Change Password</Button>
+              <Button variant="outline">Change Password</Button>
             </ChangePasswordDrawer>
           </div>
         </SettingSection>
