@@ -1,4 +1,3 @@
-import { X } from "lucide-react"
 import { z } from "zod"
 
 export const NameSchema = z
@@ -46,7 +45,7 @@ export const ForgotPasswordSchema = z.object({
 
 export const ChangePasswordSchema = z.object({
   newPassword: PasswordSchema,
-  currentPassword: PasswordSchema,
+  currentPassword: PasswordSchema
 })
 
 export const ResetPasswordSchema = z
