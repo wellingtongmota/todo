@@ -1,37 +1,30 @@
 # Stage 1: Build the application
 FROM node:24-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copia apenas o necessário para instalar dependências (cache eficiente)
 COPY package.json package-lock.json* ./
-
-# Install dependencies
 RUN npm install --force
 
-# Copy the rest of the application code
+# Copia o restante do código e o esquema do Prisma
 COPY . .
 
-# Copy .env file
-COPY .env .env
-
-# Generate Prisma client
+# Gera o Prisma Client (essencial para o código TypeScript/Next.js)
 RUN npx prisma generate
 
-# Migrate Prisma
-RUN npx prisma migrate deploy
-
-# Build the application
+# Build da aplicação Next.js
 RUN npm run build
 
 # Stage 2: Run the application
 FROM node:24-alpine AS runner
 
-# Set working directory
 WORKDIR /app
 
-# Copy necessary files from the builder stage
+# Define variável de ambiente para produção
+ENV NODE_ENV=production
+
+# Copia arquivos necessários do estágio builder 
 COPY --from=builder /app/package.json /app/package-lock.json ./
 COPY --from=builder /app/.env .env
 COPY --from=builder /app/.next ./.next
@@ -39,11 +32,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
 
-# Expose the port the app runs on
+# Expor a porta do Next.js
 EXPOSE 3000
 
-# Set environment variables
-ENV NODE_ENV=production
-
-# Run the application
-CMD ["npm", "start"]
+CMD npx prisma migrate deploy && npm start
