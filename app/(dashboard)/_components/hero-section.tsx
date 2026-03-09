@@ -1,6 +1,5 @@
 "use client"
 
-import { GlowEffect } from "@/components/motion-primitives/glow-effect"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Rocket } from "lucide-react"
@@ -23,13 +22,6 @@ export default function HeroSection() {
             </p>
 
             <div className="relative mx-auto mt-8 w-fit">
-              <GlowEffect
-                colors={["#FF5733", "#33FF57", "#3357FF", "#7C3AED"]}
-                mode="colorShift"
-                blur="strong"
-                duration={3}
-                scale={0.9}
-              />
               <Link
                 href="/sign-in"
                 className={cn([buttonVariants({ size: "lg" }), "relative"])}
